@@ -7,6 +7,7 @@ pub mod json;
 pub mod tilesheet;
 pub mod tools;
 pub mod script;
+pub mod cart;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
