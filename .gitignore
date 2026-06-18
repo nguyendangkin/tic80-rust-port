@@ -199,3 +199,4 @@ build/*.map
 *.rlib
 *.pdb
 /target/
+rust/target/
