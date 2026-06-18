@@ -6,10 +6,11 @@ description = "TIC-80 fantasy computer — 100% Rust"
 
 [features]
 default = []
-sdl2 = ["dep:sdl2"]
+sdl2 = ["dep:sdl2", "dep:sdl2-sys"]
 
 [dependencies]
 flate2 = "1.0"
 serde_json = "1.0"
 mlua = { version = "0.10", features = ["lua54", "vendored"] }
 sdl2 = { version = "0.37", optional = true }
+sdl2-sys = { version = "0.37", optional = true }

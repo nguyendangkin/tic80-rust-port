@@ -58,41 +58,16 @@ pub const NOTE_FREQS: [u16; 104] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Blip-buf wrappers (stubs for now — link against C blip_buf for full use)
+// Blip-buf wrappers (stubs — replace with FFI to C blip_buf for full audio)
 // ---------------------------------------------------------------------------
 
-// These are used by the synthesis pipeline; when linking the full TIC-80
-// binary, replace with FFI to the C blip_buf library.
-
-#[cfg(not(test))]
 mod blip {
-    extern "C" {
-        pub fn blip_new(size: i32) -> *mut std::ffi::c_void;
-        pub fn blip_delete(blip: *mut std::ffi::c_void);
-        pub fn blip_set_rates(blip: *mut std::ffi::c_void, clock_rate: f64, sample_rate: f64);
-        pub fn blip_add_delta(blip: *mut std::ffi::c_void, time: i32, delta: i32);
-        pub fn blip_end_frame(blip: *mut std::ffi::c_void, time: u32);
-        pub fn blip_read_samples(blip: *mut std::ffi::c_void, buffer: *mut i16, count: i32, stereo: i32) -> i32;
-        pub fn blip_clear(blip: *mut std::ffi::c_void);
-    }
-}
-
-#[cfg(test)]
-mod blip {
-    #[allow(improper_ctypes)]
-    pub unsafe fn blip_new(_size: i32) -> *mut std::ffi::c_void {
-        std::ptr::null_mut()
-    }
+    pub unsafe fn blip_new(_size: i32) -> *mut std::ffi::c_void { std::ptr::null_mut() }
     pub unsafe fn blip_delete(_blip: *mut std::ffi::c_void) {}
     pub unsafe fn blip_set_rates(_blip: *mut std::ffi::c_void, _clock: f64, _sample: f64) {}
     pub unsafe fn blip_add_delta(_blip: *mut std::ffi::c_void, _time: i32, _delta: i32) {}
     pub unsafe fn blip_end_frame(_blip: *mut std::ffi::c_void, _time: u32) {}
-    pub unsafe fn blip_read_samples(
-        _blip: *mut std::ffi::c_void,
-        _buffer: *mut i16,
-        _count: i32,
-        _stereo: i32,
-    ) -> i32 { 0 }
+    pub unsafe fn blip_read_samples(_blip: *mut std::ffi::c_void, _buffer: *mut i16, _count: i32, _stereo: i32) -> i32 { 0 }
     pub unsafe fn blip_clear(_blip: *mut std::ffi::c_void) {}
 }
 

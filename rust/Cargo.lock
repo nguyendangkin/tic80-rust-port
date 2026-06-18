@@ -392,6 +392,7 @@ dependencies = [
  "flate2",
  "mlua",
  "sdl2",
+ "sdl2-sys",
  "serde_json",
 ]
 

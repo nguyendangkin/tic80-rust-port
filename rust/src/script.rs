@@ -9,16 +9,15 @@
 
 use crate::tools;
 
-/// Opaque TIC-80 memory handle (defined in C).
+/// Opaque TIC-80 memory handle.
 #[repr(C)]
 pub struct Mem {
     _private: [u8; 0],
 }
 
-extern "C" {
-    fn tic_cart_get_lang(memory: *const Mem) -> u8;
-    fn tic_cart_get_code(memory: *const Mem) -> *const u8;
-}
+// Stubs — replace with actual FFI when building with C support
+fn get_lang(_memory: *const Mem) -> u8 { 0 }
+fn get_code(_memory: *const Mem) -> *const u8 { std::ptr::null() }
 
 // ---------------------------------------------------------------------------
 // Callback function pointer types
@@ -171,7 +170,7 @@ pub fn get_script(memory: *const Mem) -> Option<&'static Script> {
     let reg = REGISTRY.lock().unwrap();
 
     // Try matching by language id
-    let lang_id = unsafe { tic_cart_get_lang(memory) };
+    let lang_id = get_lang(memory);
     for &s in reg.iter() {
         if s.id == lang_id {
             return Some(s);
@@ -179,7 +178,7 @@ pub fn get_script(memory: *const Mem) -> Option<&'static Script> {
     }
 
     // Try matching by meta-tag
-    let code_ptr = unsafe { tic_cart_get_code(memory) };
+    let code_ptr = get_code(memory);
     if !code_ptr.is_null() {
         let code = unsafe { std::ffi::CStr::from_ptr(code_ptr as *const std::ffi::c_char) }
             .to_string_lossy();
