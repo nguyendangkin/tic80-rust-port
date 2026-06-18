@@ -44,7 +44,7 @@ unsafe fn poke2(addr: *mut u8, index: u32, value: u8) {
     *p = (*p & !(3 << shift)) | ((value & 3) << shift);
 }
 /// Read 4 bits at bit-index `index`.
-unsafe fn peek4(addr: *const u8, index: u32) -> u8 {
+pub unsafe fn peek4(addr: *const u8, index: u32) -> u8 {
     (*addr.add((index >> 1) as usize) >> ((index & 1) << 2)) & 15
 }
 /// Write 4 bits at bit-index `index`.
