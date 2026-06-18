@@ -14,6 +14,7 @@ pub mod core;
 pub mod draw;
 pub mod draw_dep;
 pub mod sound;
+pub mod studio;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
