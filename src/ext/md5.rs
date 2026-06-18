@@ -5,14 +5,12 @@
 //!
 //! # Example
 //! ```rust
-//! use md5::Md5;
+//! use tic80_rust::md5::Md5;
 //!
 //! let digest = Md5::digest(b"hello world");
 //! assert_eq!(digest, [0x5e, 0xb6, 0x3b, 0xbb, 0xe0, 0x1e, 0xee, 0xd0,
 //!                     0x93, 0xcb, 0x22, 0xbb, 0x8f, 0x5a, 0xcd, 0xc3]);
 //! ```
-
-#![no_std]
 
 // ---------------------------------------------------------------------------
 // Non-linear functions (RFC 1321 Section 3.4)

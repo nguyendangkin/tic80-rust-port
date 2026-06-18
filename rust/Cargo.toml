@@ -1,0 +1,8 @@
+[package]
+name = "tic80-rust"
+version = "0.1.0"
+edition = "2021"
+description = "TIC-80 fantasy computer — Rust port"
+
+[dependencies]
+flate2 = "1.0"
