@@ -2,14 +2,14 @@
 name = "tic80-rust"
 version = "1.0.0"
 edition = "2021"
-description = "TIC-80 fantasy computer — 100% Rust production build"
+description = "TIC-80 fantasy computer — 100% Rust"
 
 [features]
-default = ["sdl2"]
+default = []
 sdl2 = ["dep:sdl2"]
 
 [dependencies]
 flate2 = "1.0"
 serde_json = "1.0"
 mlua = { version = "0.10", features = ["lua54", "vendored"] }
-sdl2 = { version = "0.38", optional = true }
+sdl2 = { version = "0.37", optional = true }

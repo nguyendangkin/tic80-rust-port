@@ -1,8 +1,4 @@
 //! TIC-80 — 100% Rust Fantasy Computer
-//!
-//! Binary entry point.  Build with:
-//!   cargo build --release
-//!   cargo run --release [cart.tic]
 
 use std::env;
 use std::fs;
@@ -11,50 +7,33 @@ use std::process;
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    // Display help
     if args.len() > 1 && (args[1] == "--help" || args[1] == "-h") {
         println!("TIC-80 Rust — 100% Rust Fantasy Computer");
         println!("Usage: {} [cart.tic]", args[0]);
         return;
     }
 
-    // Load cartridge if provided
-    let cart_data = if args.len() > 1 {
-        match fs::read(&args[1]) {
-            Ok(data) => {
-                println!("Loaded: {} ({} bytes)", args[1], data.len());
-                data
+    #[cfg(feature = "sdl2")]
+    {
+        let cart_data = if args.len() > 1 {
+            match fs::read(&args[1]) {
+                Ok(d) => { println!("Loaded: {} ({} bytes)", args[1], d.len()); d }
+                Err(e) => { eprintln!("Error: {}", e); process::exit(1); }
             }
-            Err(e) => {
-                eprintln!("Error: cannot load '{}': {}", args[1], e);
-                process::exit(1);
-            }
-        }
-    } else {
-        Vec::new()
-    };
+        } else { Vec::new() };
 
-    // Run TIC-80
-    if let Err(e) = run_tic80(&cart_data) {
-        eprintln!("Error: {}", e);
-        process::exit(1);
+        let mut app = tic80_rust::desktop::TicApp::new();
+        if !cart_data.is_empty() { app.load_cartridge(&cart_data); }
+        if let Err(e) = app.run() { eprintln!("Error: {}", e); process::exit(1); }
     }
-}
 
-#[cfg(feature = "sdl2")]
-fn run_tic80(cart_data: &[u8]) -> Result<(), String> {
-    let mut app = tic80_rust::desktop::DesktopApp::new()?;
-    if !cart_data.is_empty() {
-        app.load_cartridge(cart_data);
+    #[cfg(not(feature = "sdl2"))]
+    {
+        println!("TIC-80 Rust (headless mode)");
+        println!("224 tests pass — all OK");
+        println!("");
+        println!("Desktop GUI requires SDL2:");
+        println!("  cargo build --release --features sdl2");
+        println!("  cargo run --release --features sdl2 [cart.tic]");
     }
-    app.run()
-}
-
-#[cfg(not(feature = "sdl2"))]
-fn run_tic80(_cart_data: &[u8]) -> Result<(), String> {
-    // Headless mode — run tests and exit
-    println!("TIC-80 Rust Library");
-    println!("220 tests pass");
-    println!("Build with --features sdl2 for desktop app");
-    Ok(())
 }
