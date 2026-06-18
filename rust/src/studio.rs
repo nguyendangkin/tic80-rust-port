@@ -7,7 +7,6 @@
 
 use crate::cart::Cartridge;
 use crate::json;
-use crate::tools;
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
@@ -432,7 +431,7 @@ pub struct MusicEditor {
 // ---------------------------------------------------------------------------
 
 pub mod net {
-    use super::*;
+    
     // Using TicNet defined above
 }
 

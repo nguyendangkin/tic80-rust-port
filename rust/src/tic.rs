@@ -7,10 +7,6 @@ use crate::cart;
 use crate::core;
 use crate::draw;
 use crate::io;
-use crate::script;
-use crate::sound;
-use crate::tools;
-use crate::system::*;
 
 // ---------------------------------------------------------------------------
 // Constants

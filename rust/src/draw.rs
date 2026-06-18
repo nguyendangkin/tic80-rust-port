@@ -449,7 +449,7 @@ fn fill_dequeue() -> Option<FillSegment> {
     }
 }
 
-pub fn flood_fill(ram: &mut [u8], clip: &ClipRect, x: i32, y: i32, new_color: u8, border_color: u8) {
+pub fn flood_fill(ram: &mut [u8], clip: &ClipRect, x: i32, y: i32, new_color: u8, _border_color: u8) {
     if x < 0 || y < 0 || x >= TIC80_WIDTH as i32 || y >= TIC80_HEIGHT as i32 {
         return;
     }
@@ -556,7 +556,7 @@ fn draw_tile(
     x: i32,
     y: i32,
     colors: &[u8],
-    count: u8,
+    _count: u8,
     scale: i32,
     flip: Flip,
     rotate: Rotate,
@@ -602,7 +602,7 @@ fn draw_tile(
         let mut xx = x;
         for px in 0..TIC_SPRITESIZE {
             let ix = if orientation & 1 != 0 { TIC_SPRITESIZE as i32 - px as i32 - 1 } else { px as i32 };
-            let mut iy = if orientation & 2 != 0 { TIC_SPRITESIZE as i32 - py as i32 - 1 } else { py as i32 };
+            let iy = if orientation & 2 != 0 { TIC_SPRITESIZE as i32 - py as i32 - 1 } else { py as i32 };
             let (ix, iy) = if orientation & 4 != 0 {
                 (iy, ix)
             } else {
@@ -815,7 +815,7 @@ fn draw_text(
     clip: &ClipRect,
     font_face: &tilesheet::Tilesheet,
     text: &str,
-    mut x: i32,
+    x: i32,
     mut y: i32,
     width: i32,
     height: i32,
@@ -849,13 +849,13 @@ pub fn tic_api_print(
     ram_font: *const u8,
     ram_tiles: *const u8,
     text: &str,
-    mut x: i32,
+    x: i32,
     y: i32,
     color: u8,
     fixed: bool,
     scale: i32,
     alt: bool,
-    blit_segment: u8,
+    _blit_segment: u8,
 ) -> i32 {
     let mut mapping = [TRANSPARENT_COLOR; TIC_PALETTE_SIZE];
     mapping[1] = color;
@@ -877,7 +877,7 @@ pub fn tic_api_font(
     x: i32,
     y: i32,
     colors: &[u8],
-    count: u8,
+    _count: u8,
     w: i32,
     h: i32,
     fixed: bool,

@@ -444,7 +444,7 @@ pub fn cart_load(cart: &mut Cartridge, data: &[u8]) {
 ///
 /// Returns the number of bytes written.
 pub fn cart_save(cart: &Cartridge, buffer: &mut [u8]) -> usize {
-    let start_len = buffer.len();
+    let _start_len = buffer.len();
     let mut pos = 0usize;
 
     let write_chunk =
@@ -467,13 +467,13 @@ pub fn cart_save(cart: &Cartridge, buffer: &mut [u8]) -> usize {
 
     // Default palettes for comparison
     let default_palette = &SWEETIE16;
-    let default_waveforms = &WAVEFORMS;
+    let _default_waveforms = &WAVEFORMS;
 
     for bank_idx in 0..TIC_BANKS {
         let bank_data = &cart.banks[bank_idx];
 
         // Check if palette + waveforms match defaults
-        let has_default_pal = bank_data.len() >= 48
+        let _has_default_pal = bank_data.len() >= 48
             && bank_data[..48.min(bank_data.len())] == default_palette[..];
 
         // Simplified: always save palette chunk (or default marker)

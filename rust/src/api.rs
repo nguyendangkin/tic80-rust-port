@@ -2,7 +2,7 @@
 //!
 //! 100% Rust, no C dependencies.  Uses mlua with vendored LuaJIT/Lua5.4.
 
-use mlua::{Function, Lua, Result, Table, Value};
+use mlua::{Lua, Result};
 
 /// Create a Lua VM with all TIC-80 API functions registered.
 pub fn create_lua_vm() -> Result<Lua> {
@@ -13,7 +13,7 @@ pub fn create_lua_vm() -> Result<Lua> {
 
     // Graphics
     tic.set("cls", lua.create_function(|_, ()| Ok(()))?)?;
-    tic.set("pix", lua.create_function(|_, (x, y, c): (i32, i32, i32)| Ok::<_, mlua::Error>(0i32))?)?;
+    tic.set("pix", lua.create_function(|_, (_x, _y, _c): (i32, i32, i32)| Ok::<_, mlua::Error>(0i32))?)?;
     tic.set("line", lua.create_function(|_, ()| Ok(()))?)?;
     tic.set("rect", lua.create_function(|_, ()| Ok(()))?)?;
     tic.set("rectb", lua.create_function(|_, ()| Ok(()))?)?;
@@ -30,18 +30,18 @@ pub fn create_lua_vm() -> Result<Lua> {
     tic.set("clip", lua.create_function(|_, ()| Ok(()))?)?;
 
     // Input
-    tic.set("btn", lua.create_function(|_, (i,): (i32,)| Ok(0u32))?)?;
-    tic.set("btnp", lua.create_function(|_, (i, h, p): (i32, i32, i32)| Ok(0u32))?)?;
-    tic.set("key", lua.create_function(|_, (k,): (i32,)| Ok(false))?)?;
-    tic.set("keyp", lua.create_function(|_, (k, h, p): (i32, i32, i32)| Ok(false))?)?;
+    tic.set("btn", lua.create_function(|_, (_i,): (i32,)| Ok(0u32))?)?;
+    tic.set("btnp", lua.create_function(|_, (_i, _h, _p): (i32, i32, i32)| Ok(0u32))?)?;
+    tic.set("key", lua.create_function(|_, (_k,): (i32,)| Ok(false))?)?;
+    tic.set("keyp", lua.create_function(|_, (_k, _h, _p): (i32, i32, i32)| Ok(false))?)?;
     tic.set("mouse", lua.create_function(|_, ()| Ok((0i32, 0i32)))?)?;
 
     // Memory
-    tic.set("peek", lua.create_function(|_, (a, b): (i32, i32)| Ok(0u8))?)?;
-    tic.set("poke", lua.create_function(|_, (a, v, b): (i32, i32, i32)| Ok(()))?)?;
+    tic.set("peek", lua.create_function(|_, (_a, _b): (i32, i32)| Ok(0u8))?)?;
+    tic.set("poke", lua.create_function(|_, (_a, _v, _b): (i32, i32, i32)| Ok(()))?)?;
     tic.set("memcpy", lua.create_function(|_, ()| Ok(()))?)?;
     tic.set("memset", lua.create_function(|_, ()| Ok(()))?)?;
-    tic.set("pmem", lua.create_function(|_, (i, v, s): (i32, u32, bool)| Ok(0u32))?)?;
+    tic.set("pmem", lua.create_function(|_, (_i, _v, _s): (i32, u32, bool)| Ok(0u32))?)?;
 
     // Audio
     tic.set("sfx", lua.create_function(|_, ()| Ok(()))?)?;
@@ -51,14 +51,14 @@ pub fn create_lua_vm() -> Result<Lua> {
     tic.set("sync", lua.create_function(|_, ()| Ok(()))?)?;
     tic.set("tstamp", lua.create_function(|_, ()| Ok(0i32))?)?;
     tic.set("time", lua.create_function(|_, ()| Ok(0.0f64))?)?;
-    tic.set("trace", lua.create_function(|_, (t,): (String,)| Ok(()))?)?;
+    tic.set("trace", lua.create_function(|_, (_t,): (String,)| Ok(()))?)?;
     tic.set("exit", lua.create_function(|_, ()| Ok(()))?)?;
-    tic.set("vbank", lua.create_function(|_, (b,): (i32,)| Ok(0i32))?)?;
+    tic.set("vbank", lua.create_function(|_, (_b,): (i32,)| Ok(0i32))?)?;
     tic.set("reset", lua.create_function(|_, ()| Ok(()))?)?;
 
     // Flags
-    tic.set("fget", lua.create_function(|_, (i, f): (i32, i32)| Ok(false))?)?;
-    tic.set("fset", lua.create_function(|_, (i, f, v): (i32, i32, bool)| Ok(()))?)?;
+    tic.set("fget", lua.create_function(|_, (_i, _f): (i32, i32)| Ok(false))?)?;
+    tic.set("fset", lua.create_function(|_, (_i, _f, _v): (i32, i32, bool)| Ok(()))?)?;
 
     lua.globals().set("tic", tic)?;
 

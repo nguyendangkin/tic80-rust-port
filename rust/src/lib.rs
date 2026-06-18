@@ -2,6 +2,8 @@
 //!
 //! All ported modules are re-exported here.
 
+#![allow(dead_code, non_snake_case, non_upper_case_globals, static_mut_refs, unused_imports, unused_variables)]
+
 pub mod zip;
 pub mod json;
 pub mod tilesheet;

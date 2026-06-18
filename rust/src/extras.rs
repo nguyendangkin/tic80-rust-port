@@ -61,7 +61,7 @@ pub mod png {
         pub pixels: Vec<u8>,
     }
     impl PngImage {
-        pub fn decode(data: &[u8]) -> Option<Self> {
+        pub fn decode(_data: &[u8]) -> Option<Self> {
             // Would use `png` crate decoder
             None
         }

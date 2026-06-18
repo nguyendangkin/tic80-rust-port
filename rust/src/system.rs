@@ -4,11 +4,6 @@
 //! sdl/main.c (2188 lines), studio/studio.c (3037 lines).
 
 use crate::cart::{self, Cartridge};
-use crate::core;
-use crate::draw;
-use crate::script;
-use crate::studio;
-use crate::tools;
 
 // ---------------------------------------------------------------------------
 // Constants

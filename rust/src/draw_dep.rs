@@ -27,7 +27,6 @@ const TIC_MAP_HEIGHT: i32 = 30;
 // Global sides buffer (thread-local, like C static)
 // ---------------------------------------------------------------------------
 
-use std::cell::UnsafeCell;
 
 struct TexSideBuffer {
     left: [i16; 136],
