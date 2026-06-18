@@ -44,6 +44,8 @@ pub struct Tic80 {
     pub keyboard_holds: [u32; crate::io::tic_keys_count],
     pub mapping: io::Mapping,
     pub flags: Vec<u8>,
+    pub font_data: Vec<u8>,
+    pub alt_font_data: Vec<u8>,
     pub state_initialized: bool,
     pub synced: u32,
     pub vbank_id: i32,
@@ -78,6 +80,8 @@ impl Tic80 {
             synced: 0,
             vbank_id: 0,
             vbank_mem: vec![0u8; 0xA000],
+            font_data: crate::font::FONT_DATA.to_vec(),
+            alt_font_data: crate::font::ALTFONT_DATA.to_vec(),
         }
     }
 

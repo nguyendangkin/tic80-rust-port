@@ -288,29 +288,17 @@ impl TicApp {
         draw::tic_api_cls(ram, clip, 0);
         // Use RAM itself as font source (font embedded at offset)
         let ram_ptr = ram.as_ptr();
-        // Draw colored bars for each console line (text rendering needs font init)
+        // Render text using TIC-80 font system
+        let font_ptr = self.tic.font_data.as_ptr();
+        let tiles_ptr = self.tic.font_data.as_ptr(); // tiles start at segment 2+
         let mut y = 130i32;
         for line in self.console.lines.iter().rev() {
             y -= self.console.line_height;
             if y < 0 { break; }
-            // Draw a colored pixel for each character position
-            let color = 12u8; // light blue
-            for (i, _) in line.chars().enumerate() {
-                let x = (i as i32) * 6;
-                if x < 240 {
-                    core::poke4(ram, (y * 240 + x) as i32, color);
-                }
-            }
+            draw::tic_api_print(ram, clip, font_ptr, tiles_ptr, line, 0, y, 15, true, 1, false, 0);
         }
-        // Draw prompt
-        let prompt = format!(">{}_", self.cmd_buf);
-        let color = 15u8; // white
-        for (i, _) in prompt.chars().enumerate() {
-            let x = (i as i32) * 6;
-            if x < 240 {
-                core::poke4(ram, (130 * 240 + x) as i32, color);
-            }
-        }
+        let prompt = format!(">{}", self.cmd_buf);
+        draw::tic_api_print(ram, clip, font_ptr, tiles_ptr, &prompt, 0, 130, 15, true, 1, false, 0);
     }
 }
 
