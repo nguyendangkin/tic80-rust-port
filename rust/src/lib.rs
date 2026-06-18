@@ -10,6 +10,7 @@ pub mod script;
 pub mod cart;
 pub mod parse_note;
 pub mod io;
+pub mod core;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
