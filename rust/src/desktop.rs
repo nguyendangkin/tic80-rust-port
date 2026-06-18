@@ -8,6 +8,7 @@ use sdl2::pixels::PixelFormatEnum;
 
 const W: i32 = 256; const H: i32 = 256; const SCALE: u32 = 3;
 
+#[derive(Clone, Copy)]
 enum Mode {
     Console, Run, Code, Sprite, Map, Sfx, Music,
 }
@@ -118,7 +119,7 @@ impl TicApp {
 
     fn switch(&mut self, m: Mode) {
         self.mode = m;
-        self.msg = match m {
+        self.msg = match self.mode {
             Mode::Console => "Console".into(),
             Mode::Run => "Running... ESC for console".into(),
             Mode::Code => "Code Editor".into(),
