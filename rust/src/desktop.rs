@@ -83,12 +83,20 @@ impl TicApp {
 
             match self.mode {
                 Mode::Run => { self.tic.tick(&self.input, None, None); }
-                Mode::Console => self.render_console(),
-                Mode::Code => self.render_code(),
-                Mode::Sprite => self.render_sprite(),
-                Mode::Map => self.render_map(),
-                Mode::Sfx => self.render_sfx(),
-                Mode::Music => self.render_music(),
+                _ => {
+                    // Render to RAM first, then blit to screen buffer
+                    match self.mode {
+                        Mode::Console => self.render_console(),
+                        Mode::Code => self.render_code(),
+                        Mode::Sprite => self.render_sprite(),
+                        Mode::Map => self.render_map(),
+                        Mode::Sfx => self.render_sfx(),
+                        Mode::Music => self.render_music(),
+                        _ => {}
+                    }
+                    // Blit RAM → screen buffer
+                    self.tic.blit();
+                }
             }
 
             tex.with_lock(None, |px: &mut [u8], pitch: usize| {

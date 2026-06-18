@@ -140,8 +140,8 @@ impl Tic80 {
         self.samples.clear();
     }
 
-    // Internal: blit screen from RAM to pixel buffer
-    fn blit(&mut self) {
+    /// Blit screen from RAM to pixel buffer
+    pub fn blit(&mut self) {
         // Simplified screen rendering
         // In production, this iterates over the screen RAM and
         // converts 4bpp indexed pixels to RGBA using the palette
