@@ -18,6 +18,8 @@ pub mod studio;
 pub mod system;
 pub mod api;
 pub mod tic;
+#[cfg(feature = "sdl2")]
+pub mod desktop;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
