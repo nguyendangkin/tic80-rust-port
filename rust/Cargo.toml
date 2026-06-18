@@ -6,3 +6,4 @@ description = "TIC-80 fantasy computer — Rust port"
 
 [dependencies]
 flate2 = "1.0"
+serde_json = "1.0"
