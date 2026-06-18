@@ -126,11 +126,11 @@ const SEGMENTS: &[BlitSegment] = &[
     // 2bpp p0 bg
     BlitSegment { page_orig: 0, bank_orig: 0, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
     // 2bpp p1 bg
-    BlitSegment { page_orig: 0, bank_orig: 1, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
-    // 2bpp p0 fg
-    BlitSegment { page_orig: 0, bank_orig: 0, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
-    // 2bpp p1 fg
     BlitSegment { page_orig: 1, bank_orig: 0, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
+    // 2bpp p0 fg
+    BlitSegment { page_orig: 0, bank_orig: 1, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
+    // 2bpp p1 fg
+    BlitSegment { page_orig: 1, bank_orig: 1, nb_pages: 2, bank_size: 512, sheet_width: 32, tile_width: 16, ptr_size: TILE_SIZE, peek: peek2, poke: poke2 },
     // 1bpp p0 bg
     BlitSegment { page_orig: 0, bank_orig: 0, nb_pages: 4, bank_size: 1024, sheet_width: 64, tile_width: 32, ptr_size: TILE_SIZE, peek: peek1, poke: poke1 },
     // 1bpp p1 bg

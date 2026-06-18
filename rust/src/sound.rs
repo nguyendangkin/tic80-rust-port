@@ -12,15 +12,15 @@ pub const BITS_IN_BYTE: usize = 8;
 pub const NOTES_PER_BEAT: u32 = 4;
 pub const TIC80_FRAMERATE: u32 = 60;
 pub const CLOCKRATE: u32 = 255 << 13;
-pub const WAVE_VALUES: usize = 68;
+pub const WAVE_VALUES: usize = 32;
 pub const MAX_VOLUME: u32 = 15;
-pub const SFX_TICKS: usize = 64;
+pub const SFX_TICKS: usize = 30;
 pub const NOTES: usize = 12;
-pub const OCTAVES: usize = 10;
-pub const DEFAULT_TEMPO: i32 = 125; // 120 bpm * 10 - 1200?
+pub const OCTAVES: usize = 8;
+pub const DEFAULT_TEMPO: i32 = 150; // 120 bpm * 10 - 1200?
 pub const DEFAULT_SPEED: i32 = 6;
-pub const SFX_DEF_SPEED: i32 = 0;
-pub const SFX_SPEED_BITS: i32 = 4;
+pub const SFX_DEF_SPEED: i32 = 8;
+pub const SFX_SPEED_BITS: i32 = 3;
 pub const SFX_COUNT_BITS: u32 = 6;
 pub const SFX_COUNT: u32 = 1 << SFX_COUNT_BITS;
 pub const MUSIC_FRAMES: u32 = 16;
@@ -38,7 +38,7 @@ pub const SECONDS_PER_MINUTE: u32 = 60;
 pub const NOTES_PER_MINUTE: u32 = TIC80_FRAMERATE / NOTES_PER_BEAT * SECONDS_PER_MINUTE;
 pub const PIANO_START: u32 = 8;
 pub const ENDTIME: u32 = CLOCKRATE / TIC80_FRAMERATE;
-pub const TIC_PCM_SIZE: usize = 64;
+pub const TIC_PCM_SIZE: usize = 128;
 
 // ---------------------------------------------------------------------------
 // Note frequency table
@@ -198,7 +198,7 @@ pub struct TrackRowEx {
 #[repr(C)]
 pub struct ChannelData {
     pub tick: i32,
-    pub pos: [i16; 4], // sfx_pos
+    pub pos: [i8; 4], // sfx_pos
     pub index: i32,
     pub note: i32,
     pub volume_left: u8,
@@ -211,7 +211,7 @@ impl Default for ChannelData {
     fn default() -> Self {
         ChannelData {
             tick: -1,
-            pos: [-1i16; 4],
+            pos: [-1i8; 4],
             index: -1,
             note: 0,
             volume_left: 0,
@@ -407,7 +407,7 @@ pub fn sfx_tick(
 
     // Update positions
     for i in 0..4 {
-        channel.pos[i] = calc_loop_pos(&sample.loops[i], pos) as i16;
+        channel.pos[i] = calc_loop_pos(&sample.loops[i], pos) as i8;
     }
 
     let pi = channel.pos[0] as usize; // volume index
@@ -510,8 +510,8 @@ mod tests {
     fn calc_loop_no_loop() {
         let loop_info = SoundLoop { start: 0, size: 0 };
         assert_eq!(calc_loop_pos(&loop_info, 0), 0);
-        assert_eq!(calc_loop_pos(&loop_info, 63), 63);
-        assert_eq!(calc_loop_pos(&loop_info, 100), 63); // clamped to SFX_TICKS-1
+        assert_eq!(calc_loop_pos(&loop_info, 29), 29);
+        assert_eq!(calc_loop_pos(&loop_info, 100), 29); // clamped to SFX_TICKS-1
     }
 
     #[test]

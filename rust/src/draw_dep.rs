@@ -5,7 +5,7 @@
 //! Uses scanline-based UV-mapped triangle rendering with a
 //! fixed-point (16.16) perspective-correct rasterizer.
 
-use crate::draw::{get_palette, set_pixel, ClipRect};
+use crate::draw::{set_pixel, ClipRect};
 use crate::tilesheet;
 // unused import removed
 
@@ -162,7 +162,13 @@ pub fn tic_api_textri(
     ram_tiles: *mut u8,
     ram_font: *mut u8,
 ) {
-    let mapping = get_palette(&[0u8; 8], colors); // simplified palette
+    fn palette(mapping_raw: &[u8], colors: &[u8]) -> [u8; 16] {
+        let mut m = [0u8; 16];
+        for i in 0..16 { m[i] = if i < mapping_raw.len() { mapping_raw[i] } else { 0 }; }
+        for &c in colors { if (c as usize) < 16 { m[c as usize] = 255; } }
+        m
+    }
+    let mapping = palette(&[0u8; 8], colors);
 
     // Get tilesheet
     let src = match blit_segment {
