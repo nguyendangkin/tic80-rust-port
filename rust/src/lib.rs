@@ -18,6 +18,7 @@ pub mod studio;
 pub mod system;
 pub mod api;
 pub mod tic;
+pub mod extras;
 #[cfg(feature = "sdl2")]
 pub mod desktop;
 
