@@ -12,6 +12,7 @@ pub mod parse_note;
 pub mod io;
 pub mod core;
 pub mod draw;
+pub mod sound;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
