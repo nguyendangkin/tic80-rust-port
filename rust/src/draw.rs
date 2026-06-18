@@ -106,7 +106,7 @@ fn get_tilesheet_from_segment(ram_tiles: *const u8, ram_font: *const u8, segment
     tilesheet::get(segment, src as *mut u8)
 }
 
-fn get_palette(mapping_raw: &[u8], colors: &[u8]) -> [u8; TIC_PALETTE_SIZE] {
+pub fn get_palette(mapping_raw: &[u8], colors: &[u8]) -> [u8; TIC_PALETTE_SIZE] {
     let mut mapping = [0u8; TIC_PALETTE_SIZE];
     for i in 0..TIC_PALETTE_SIZE {
         mapping[i] = peek4(mapping_raw, i as i32);
@@ -123,7 +123,7 @@ fn map_color(mapping_raw: &[u8], color: u8) -> u8 {
     peek4(mapping_raw, (color & 0x0f) as i32)
 }
 
-fn set_pixel(ram: &mut [u8], clip: &ClipRect, x: i32, y: i32, color: u8) {
+pub fn set_pixel(ram: &mut [u8], clip: &ClipRect, x: i32, y: i32, color: u8) {
     if x < clip.l || y < clip.t || x >= clip.r || y >= clip.b {
         return;
     }
@@ -907,11 +907,11 @@ mod tests {
     use super::*;
     use crate::core;
 
-    fn make_ram() -> Vec<u8> {
+    pub fn make_ram() -> Vec<u8> {
         vec![0u8; TIC80_WIDTH as usize * TIC80_HEIGHT as usize / 2]
     }
 
-    fn default_clip() -> ClipRect {
+    pub fn default_clip() -> ClipRect {
         ClipRect { l: 0, t: 0, r: TIC80_WIDTH as i32, b: TIC80_HEIGHT as i32 }
     }
 
