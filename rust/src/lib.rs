@@ -4,6 +4,7 @@
 
 pub mod zip;
 pub mod json;
+pub mod tilesheet;
 
 /// MD5 hasher (ported from `src/ext/md5.c`).
 #[path = "../../src/ext/md5.rs"]
