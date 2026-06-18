@@ -195,6 +195,9 @@ build/*.map
 *.3dsx
 *.smdh
 
+# Reasonix tool data
+.reasonix/
+
 # Rust build artifacts (TIC-80 port)
 *.rlib
 *.pdb
